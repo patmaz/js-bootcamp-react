@@ -15,7 +15,7 @@ promise.then(function(data){
 });
 
 function mapData(data) {
-    elems = data.map(function(dataItem, index) {
+    elems = data.map((dataItem, index) => {
         var properties = {
             title: dataItem.title,
             thumbnailUrl: dataItem.thumbnailUrl
