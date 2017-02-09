@@ -45,6 +45,28 @@ promise.then(function(data){
 
 function render(data){
     console.log(data);
+    var EntryItemTitle = React.createClass({
+        propTypes: {
+            content: React.PropTypes.string.isRequired
+        },
+
+        render: function() {
+            return (
+                React.createElement('h2', {}, this.props.content)
+            )
+        }
+    });
+    var EntryItemImg = React.createClass({
+        propTypes: {
+            content: React.PropTypes.string.isRequired
+        },
+
+        render: function() {
+            return (
+                React.createElement('img', {src: this.props.content})
+            )
+        }
+    });
     var EntryItem = React.createClass({
         propTypes: {
             index: React.PropTypes.number.isRequired,
@@ -54,8 +76,8 @@ function render(data){
         render: function() {
             return (
                 React.createElement('li', {'data-index': this.props.index},
-                    React.createElement('h2', {}, this.props.properties.title),
-                    React.createElement('img', {src: this.props.properties.thumbnailUrl})
+                    React.createElement(EntryItemTitle, {content: this.props.properties.title}),
+                    React.createElement(EntryItemImg, {content: this.props.properties.thumbnailUrl})
                 )
             )
         }
@@ -71,6 +93,26 @@ function render(data){
             properties: properties
         });
     });
-    var listOfElems = React.createElement('ul', {}, elems);
-    ReactDOM.render(listOfElems, document.getElementById('app'));
+    var ListOfEntries = React.createClass({
+        propTypes: {
+            elems: React.PropTypes.array.isRequired,
+            randomId: React.PropTypes.func,
+            someBoolean: React.PropTypes.bool
+        },
+
+        render: function() {
+            return (
+                React.createElement('ul', {
+                    id: this.props.randomId(5),
+                    className: this.props.someBoolean ? 'positive' : 'negative'
+                }, this.props.elems)
+            )
+        }
+    })
+    var listToRender = React.createElement(ListOfEntries, {
+        elems: elems,
+        randomId: function(length) { return Math.random().toString(36).substr(2, length)},
+        someBoolean: true
+    });
+    ReactDOM.render(listToRender, document.getElementById('app'));
 }
