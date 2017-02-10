@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import EntryItemTitle from './EntryItemTitle.jsx';
 import EntryItemImg from './EntryItemImg.jsx';
 
