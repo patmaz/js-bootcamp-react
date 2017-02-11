@@ -6,7 +6,7 @@ import Status from './components/Status.jsx';
 import getPromise from './modules/getPromise';
 
 var placeholders;
-var promise = getPromise(0, 5);
+var promise = getPromise(0, 3);
 promise.then(function(data){
     console.log('Got data! Promise fulfilled');
     mapRenderData(JSON.parse(data));
