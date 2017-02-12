@@ -1,36 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EntryItem from './components/EntryItem.jsx';
+import { Router, Route, Link, browserHistory } from 'react-router';
 import ListOfEntries from './components/ListOfEntries.jsx';
-import Status from './components/Status.jsx';
-import getPromise from './modules/getPromise';
+import SearchGifApp from './components/SearchGifApp.jsx';
 
-var placeholders;
-var promise = getPromise(0, 3);
-promise.then(function(data){
-    console.log('Got data! Promise fulfilled');
-    mapRenderData(JSON.parse(data));
-}, function(err){
-    console.log('Promise rejected.');
-    console.log(err.message);
-    renderErr((err.message).toString())
-});
+class App extends React.Component {
+  render () {
+    return (
+      <div>
+        <div className="searchGifWrapper">
+            <SearchGifApp />
+        </div>
+        <div className="placeholders">
+            <ListOfEntries randomId={function(length) { return Math.random().toString(36).substr(2, length)}} someBoolean={true} />
+        </div>
+      </div>
+    )
+  }
+}
 
-function mapRenderData(data) {
-    placeholders = data.map((dataItem, index) => {
-        var properties = {
-            title: dataItem.title,
-            thumbnailUrl: dataItem.thumbnailUrl
-        };
-        return <EntryItem key={dataItem.id} index={index} properties={properties} />
-    });
-    ReactDOM.render(<ListOfEntries
-                    placeholders={placeholders}
-                    randomId={function(length) { return Math.random().toString(36).substr(2, length)}}
-                    someBoolean={true} />,
+ReactDOM.render(<Router history={browserHistory}>
+                    <Route path="*" component={App} />
+                </Router>,
                 document.getElementById('app'));
-}
-
-function renderErr(msg) {
-    ReactDOM.render(<Status content={msg}/>, document.getElementById('app'));
-}
