@@ -58,8 +58,8 @@ class EntryItem extends React.Component {
     render() {
         return (
             <li data-index={this.props.index} style={{backgroundColor:this.state.color}}>
-                <EntryItemTitle content={this.props.properties.title} />
-                <EntryItemImg content={this.props.properties.thumbnailUrl} />
+                <EntryItemTitle title={this.props.properties.title} />
+                <EntryItemImg src={this.props.properties.thumbnailUrl} />
                 <button onClick={this.changeMyState.bind(this)}>change my state</button>
             </li>
         )

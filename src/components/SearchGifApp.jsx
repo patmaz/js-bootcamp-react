@@ -42,7 +42,6 @@ class SearchGifApp extends React.Component {
                     url: gif.fixed_width_downsampled_url,
                     sourceUrl: gif.url
                 };
-                console.log(gif);
                 cb(gif);
             }
         };
